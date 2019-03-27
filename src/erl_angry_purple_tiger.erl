@@ -1,7 +1,7 @@
 -module(erl_angry_purple_tiger).
 
 %% API exports
--export([animal_name/1, hex_digest/1]).
+-export([animal_name/1]).
 
 -include("src/erl_angry_purple_tiger.hrl").
 
@@ -14,7 +14,10 @@
 %%====================================================================
 animal_name(String) ->
     [AdjectiveIndex, ColorIndex, AnimalIndex] = hex_digest(String),
-    {lists:nth(AdjectiveIndex+1, ?ADJECTIVES), lists:nth(ColorIndex+1, ?COLORS), lists:nth(AnimalIndex+1, ?ANIMALS)}.
+    {ok,
+     lists:nth(AdjectiveIndex+1, ?ADJECTIVES) ++ " " ++
+     lists:nth(ColorIndex+1, ?COLORS) ++ " " ++
+     lists:nth(AnimalIndex+1, ?ANIMALS)}.
 
 %%====================================================================
 %% Internal functions
@@ -39,6 +42,6 @@ compress(Size, Bin, Acc) ->
 
 basic_test() ->
     Known = "112CuoXo7WCcp6GGwDNBo6H5nKXGH45UNJ39iEefdv2mwmnwdFt8",
-    ?assertEqual("feisty glass dalmatian", animal_name(Foo)).
+    ?assertEqual({ok, "feisty glass dalmatian"}, animal_name(Known)).
 
 -endif.
