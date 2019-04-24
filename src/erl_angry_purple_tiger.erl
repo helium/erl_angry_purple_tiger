@@ -15,8 +15,8 @@
 animal_name(String) ->
     [AdjectiveIndex, ColorIndex, AnimalIndex] = hex_digest(String),
     {ok,
-     lists:nth(AdjectiveIndex+1, ?ADJECTIVES) ++ " " ++
-     lists:nth(ColorIndex+1, ?COLORS) ++ " " ++
+     lists:nth(AdjectiveIndex+1, ?ADJECTIVES) ++ "-" ++
+     lists:nth(ColorIndex+1, ?COLORS) ++ "-" ++
      lists:nth(AnimalIndex+1, ?ANIMALS)}.
 
 %%====================================================================
@@ -42,6 +42,6 @@ compress(Size, Bin, Acc) ->
 
 basic_test() ->
     Known = "112CuoXo7WCcp6GGwDNBo6H5nKXGH45UNJ39iEefdv2mwmnwdFt8",
-    ?assertEqual({ok, "feisty glass dalmatian"}, animal_name(Known)).
+    ?assertEqual({ok, "feisty-glass-dalmatian"}, animal_name(Known)).
 
 -endif.
